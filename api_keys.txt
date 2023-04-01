@@ -1,0 +1,6 @@
+https://steamcommunity.com/dev
+steam=
+https://developers.faceit.com/
+faceit=
+https://openai.com/
+openai=

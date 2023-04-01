@@ -1,0 +1,7 @@
+discordpy
+discord Interaction
+yt_dlp
+openai
+json
+FlightRadar24API
+asyncio
