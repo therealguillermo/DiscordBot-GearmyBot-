@@ -4,3 +4,5 @@ https://developers.faceit.com/
 faceit=
 https://openai.com/
 openai=
+https://discord.com/developers/applications
+bot_token=

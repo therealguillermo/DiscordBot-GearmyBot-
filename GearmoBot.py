@@ -7,8 +7,9 @@ import FlightRadar
 import Gamble
 import Chat
 import Moderation
+from api_keys import APIKEY
 
-
+BOT_TOKEN = APIKEY.getKey('bot_token')
 
 intents = discord.Intents().all()
 intents.members = True
@@ -25,6 +26,7 @@ async def load_cogs():
     await musicPlayer.setup(client)
     await Gamble.setup(client)
     await FlightRadar.setup(client)
+    await faceitFinder.setup(client)
     await Chat.setup(client)
     await Moderation.setup(client)
     print("Successfully loaded all cogs")
@@ -32,7 +34,7 @@ async def load_cogs():
 async def main():
     async with client:
         await load_cogs()
-        await client.start('MTAwMDI4MzgyNzI0OTM2MDkwNg.GuqMUa.DCvJ1GTjrvoMogFZ0_HC2v_vFM7hlv97lH-1xw')
+        await client.start(BOT_TOKEN)
 
 asyncio.run(main())
 # client.run("MTAwMDI4MzgyNzI0OTM2MDkwNg.GuqMUa.DCvJ1GTjrvoMogFZ0_HC2v_vFM7hlv97lH-1xw")
