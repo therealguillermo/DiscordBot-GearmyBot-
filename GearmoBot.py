@@ -3,7 +3,7 @@ from discord.ext import commands
 import asyncio
 import faceitFinder
 import musicPlayer
-import FlightRadar
+#import FlightRadar
 import Gamble
 import Chat
 import Moderation
@@ -25,9 +25,9 @@ client = commands.Bot(command_prefix="?", intents=intents)
 async def load_cogs():
     await musicPlayer.setup(client)
     await Gamble.setup(client)
-    await FlightRadar.setup(client)
-    await faceitFinder.setup(client)
-    await Chat.setup(client)
+    #await FlightRadar.setup(client)
+    #await faceitFinder.setup(client)
+    #await Chat.setup(client)
     await Moderation.setup(client)
     print("Successfully loaded all cogs")
 
@@ -37,4 +37,3 @@ async def main():
         await client.start(BOT_TOKEN)
 
 asyncio.run(main())
-# client.run("MTAwMDI4MzgyNzI0OTM2MDkwNg.GuqMUa.DCvJ1GTjrvoMogFZ0_HC2v_vFM7hlv97lH-1xw")

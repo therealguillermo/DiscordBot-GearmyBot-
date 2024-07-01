@@ -1,7 +1,12 @@
-discordpy
-discord Interaction
-yt_dlp
-openai
-json
-FlightRadar24API
-asyncio
+discord.py==2.3.1
+docopt==0.6.2
+FlightRadar24==0.3.1
+mock==5.1.0
+monotonic==1.6
+openai==0.27.8
+pydealer==1.4.0
+pytest==8.2.2
+Requests==2.32.3
+setuptools==65.5.0
+six==1.16.0
+yt_dlp==2023.7.6
