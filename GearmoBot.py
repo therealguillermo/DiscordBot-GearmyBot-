@@ -7,7 +7,7 @@ import musicPlayer
 import Gamble
 import Chat
 import Moderation
-import minecraftServer
+import MinecraftServer
 from api_keys import APIKEY
 
 BOT_TOKEN = APIKEY.getKey('bot_token')
