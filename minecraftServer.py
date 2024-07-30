@@ -84,3 +84,6 @@ class MinecraftServer(commands.Cog):
                 await channel.send("Started displaying Minecraft server output.")
             else:
                 await channel.send("Minecraft server is not running.")
+
+async def setup(client):
+    await client.add_cog(MinecraftServer(client))
