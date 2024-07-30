@@ -67,6 +67,7 @@ class MinecraftServer(commands.Cog):
         else:
             if self.is_running():
                 self.output_displaying = True
+                self.output_message = await ctx.send(f'')
                 self.output_task = asyncio.create_task(self._show_output(ctx))
                 self.output_message = await ctx.send("Started displaying Minecraft server output.")
             else:
@@ -83,12 +84,7 @@ class MinecraftServer(commands.Cog):
             current_output = output.stdout.strip()
 
             # Update the message only if there's new output
-            if current_output and current_output != self.last_output:
-                self.last_output = current_output
-                if self.output_message:
-                    await self.output_message.edit(content=f'```{current_output}```')
-                else:
-                    self.output_message = await ctx.send(f'```{current_output}```')
+            await self.output_message.edit(content=f'```{current_output}```')
 
             await asyncio.sleep(1)
 
