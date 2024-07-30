@@ -83,7 +83,12 @@ class MinecraftServer(commands.Cog):
             )
             current_output = output.stdout.strip()
 
-            # Update the message only if there's new output
+            startCapPos = len(current_output) - 1000
+            if startCapPos < 0:
+                startCapPos = 0
+
+            current_output = current_output[startCapPos:]
+            
             await self.output_message.edit(content=f'```{current_output}```')
 
             await asyncio.sleep(1)
