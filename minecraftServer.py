@@ -32,7 +32,7 @@ class MinecraftServer(commands.Cog):
             subprocess.run(
                 ['tmux', 'new-session', '-d', '-s', self.tmux_session_name, 'sh', self.start_script]
             )
-            ctx.send("Minecraft server started in tmux.")
+            await ctx.send("Minecraft server started in tmux.")
             return "Minecraft server started in tmux."
 
     @commands.command()
@@ -40,18 +40,18 @@ class MinecraftServer(commands.Cog):
         if self.is_running():
             subprocess.run(['tmux', 'send-keys', '-t', self.tmux_session_name, 'C-c'])
             subprocess.run(['tmux', 'kill-session', '-t', self.tmux_session_name])
-            ctx.send("Minecraft server stopped.")
+            await ctx.send("Minecraft server stopped.")
             return "Minecraft server stopped."
         else:
-            ctx.send("Minecraft server is not running.")
+            await ctx.send("Minecraft server is not running.")
             return "Minecraft server is not running."
 
     @commands.command()
     async def restart(self, ctx, *args):
         stop_message = await self.stop()
-        ctx.send(stop_message)
+        await ctx.send(stop_message)
         start_message = self.start()
-        ctx.send(start_message)
+        await ctx.send(start_message)
         return f"{stop_message}\n{start_message}"
 
     @commands.command()
