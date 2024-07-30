@@ -7,6 +7,7 @@ import musicPlayer
 import Gamble
 import Chat
 import Moderation
+import minecraftServer
 from api_keys import APIKEY
 
 BOT_TOKEN = APIKEY.getKey('bot_token')
@@ -29,6 +30,7 @@ async def load_cogs():
     #await faceitFinder.setup(client)
     #await Chat.setup(client)
     await Moderation.setup(client)
+    await MinecraftServer.setup(client)
     print("Successfully loaded all cogs")
 
 async def main():
