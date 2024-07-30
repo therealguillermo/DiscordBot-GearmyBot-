@@ -56,9 +56,23 @@ class MinecraftServer(commands.Cog):
 
     @commands.command()
     async def output(self, ctx, *args):
-        await self.toggle_output(ctx)
+        if self.output_displaying:
+            self.output_displaying = False
+            if self.output_task is not None:
+                self.output_task.cancel()
+                self.output_task = None
+            await ctx.send("Stopped displaying Minecraft server output.")
+            if self.output_message:
+                await self.output_message.delete()  # Optionally delete the old message
+        else:
+            if self.is_running():
+                self.output_displaying = True
+                self.output_task = asyncio.create_task(self._show_output(ctx))
+                self.output_message = await ctx.send("Started displaying Minecraft server output.")
+            else:
+                await ctx.send("Minecraft server is not running.")
 
-    async def _show_output(self, channel):
+    async def _show_output(self, ctx):
         while self.output_displaying and self.is_running():
             output = subprocess.run(
                 ['tmux', 'capture-pane', '-t', self.tmux_session_name, '-p'],
@@ -66,24 +80,17 @@ class MinecraftServer(commands.Cog):
                 stderr=subprocess.PIPE,
                 text=True
             )
-            if output.stdout:
-                await channel.send(f'```{output.stdout.strip()}```')
-            await asyncio.sleep(1)
+            current_output = output.stdout.strip()
 
-    async def toggle_output(self, channel):
-        if self.output_displaying:
-            self.output_displaying = False
-            if self.output_task is not None:
-                self.output_task.cancel()
-                self.output_task = None
-            await channel.send("Stopped displaying Minecraft server output.")
-        else:
-            if self.is_running():
-                self.output_displaying = True
-                self.output_task = asyncio.create_task(self._show_output(channel))
-                await channel.send("Started displaying Minecraft server output.")
-            else:
-                await channel.send("Minecraft server is not running.")
+            # Update the message only if there's new output
+            if current_output and current_output != self.last_output:
+                self.last_output = current_output
+                if self.output_message:
+                    await self.output_message.edit(content=f'```{current_output}```')
+                else:
+                    self.output_message = await ctx.send(f'```{current_output}```')
+
+            await asyncio.sleep(1)
 
 async def setup(client):
     await client.add_cog(MinecraftServer(client))
